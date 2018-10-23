@@ -25,7 +25,7 @@ SECRET_KEY = 'ty4%2m(a5m31z%5$(k_uw9zi%4(m0942#k&6-uy8)#u+d1-ss*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,3 +126,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+#通过配置文件启动必须配置
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_all')
