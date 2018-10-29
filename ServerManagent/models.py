@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.html import format_html
 # Create your models here.
 
 class ServerManagent(models.Model):
@@ -15,9 +15,32 @@ class ServerManagent(models.Model):
     memory = models.CharField(max_length=3)
     disk = models.CharField(max_length=10)
     date = models.DateField()
-    status = models.CharField(max_length=5)
+    status_choices = (('ON',u"运行"),
+                      ('stopping', u"准备停"),
+                      ('stoped', u"已停"),
+                      ('free', u"免费")
+                      )
+    status = models.CharField(choices=status_choices, max_length=10, default="ON")
+
     def __str__(self):
         return self.name
+
+    def colored_status(self):
+
+        if self.status == "ON":
+            color_code = 'green'
+            format_td = format_html('<span style=color:{};">{}</span>',color_code,"运行")
+        elif self.status == "stopping":
+            color_code = 'SandyBrown'
+            format_td = format_html('<span style=color:{};">{}</span>', color_code, "即将停用")
+        elif self.status == "stoped":
+            color_code = 'red'
+            format_td = format_html('<span style=color:{};">{}</span>', color_code, "已停用")
+        elif self.status == "free":
+            color_code = 'blue'
+            format_td = format_html('<span style=color:{};">{}</span>', color_code, "免费")
+
+        return format_td
 
 class AccountManagent(models.Model):
     category = models.CharField(max_length=5)
@@ -59,3 +82,5 @@ class MailManagent(models.Model):
     password= models.CharField(max_length=15)
     def __str__(self):
         return self.name
+
+

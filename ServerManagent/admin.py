@@ -6,7 +6,8 @@ from .models import *
 
 
 class SMinformation(admin.ModelAdmin):
-    list_display = ('id','classnum','provider','service','name','area','system','outside','inside','cpu','memory','disk','date','status')
+    list_display = ('id','classnum','provider','service','name','area','system','outside','inside','cpu','memory','disk','date',
+                    'colored_status')
     search_fields = ('id','classnum','provider','service','name','area','system','outside','inside','cpu','memory','disk','date','status')
     list_filter = ('service','status')
 
